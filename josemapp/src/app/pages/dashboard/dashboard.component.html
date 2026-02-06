@@ -1,0 +1,180 @@
+<!-- Dashboard Container -->
+<div class="dashboard-container" style="overflow-y: auto;">
+  <!-- Widgets Summary Section -->
+  <div class="widgets-row">
+    <div class="widget-card purple-bg">
+      <div class="widget-icon">
+        <i class="fas fa-building"></i>
+      </div>
+      <div class="widget-content">
+        <h3>Empresas</h3>
+        <p class="widget-value">{{ numeroEmpresas }}</p>
+      </div>
+    </div>
+    
+    <div class="widget-card blue-bg">
+      <div class="widget-icon">
+        <i class="fas fa-file-invoice"></i>
+      </div>
+      <div class="widget-content">
+        <h3>Facturas</h3>
+        <p class="widget-value">{{ numeroFacturas }}</p>
+      </div>
+    </div>
+    
+    <div class="widget-card green-bg">
+      <div class="widget-icon">
+        <i class="fas fa-box"></i>
+      </div>
+      <div class="widget-content">
+        <h3>Productos</h3>
+        <p class="widget-value">{{ numeroProductos }}</p>
+      </div>
+    </div>
+    
+    <div class="widget-card orange-bg">
+      <div class="widget-icon">
+        <i class="fas fa-euro-sign"></i>
+      </div>
+      <div class="widget-content">
+        <h3>Facturación Total</h3>
+        <p class="widget-value">{{ formatearMoneda(facturacionTotal) }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Main Content Section -->
+  <div class="main-content-row">
+    <!-- Billing Chart -->
+    <div class="chart-container">
+      <div class="panel-header">
+        <h2>Gráfico de Facturación</h2>
+        <select (change)="cambiarMesSeleccionado($event)" class="month-selector">
+          <option value="Último mes" selected>Último mes</option>
+          <option value="Últimos 3 meses">Últimos 3 meses</option>
+          <option value="Últimos 6 meses">Últimos 6 meses</option>
+          <option value="Todo el año">Todo el año</option>
+        </select>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="graficoFacturacion"></canvas>
+      </div>
+    </div>
+    
+    <!-- Latest Invoices -->
+    <div class="latest-invoices">
+      <div class="panel-header">
+        <h2>Últimas Facturas</h2>
+        <button class="add-button" (click)="abrirModalCrearFactura()" aria-label="Añadir factura">+</button>
+      </div>
+      <div class="invoice-list">
+        <div class="invoice-item" *ngFor="let factura of ultimasFacturas.slice(0, 3)" 
+             (click)="mostrarDetallesFactura(factura)" [class.clickable]="true">
+          <div class="invoice-company">
+            <h3>{{ factura.empresa || 'Sin empresa' }}</h3>
+            <p>{{ formatearFecha(factura.fecha) }}</p>
+          </div>
+          <div class="invoice-amount">
+            {{ formatearMoneda(factura.total) }}
+          </div>
+        </div>
+        <div *ngIf="ultimasFacturas.length === 0" class="no-data-message">
+          No hay facturas disponibles
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Tables Section -->
+  <div class="tables-row">
+    <!-- Companies Table -->
+    <div class="table-container">
+      <div class="panel-header">
+        <h2>Empresas</h2>
+        <button class="add-button" (click)="abrirModalCrearEmpresa()" aria-label="Añadir empresa">+</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar empresa..." [(ngModel)]="busquedaEmpresa" (input)="filtrarEmpresas($event)">
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="col-nombre">Empresa</th>
+              <th class="col-cif">CIF</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let empresa of empresasFiltradas; let i = index">
+              <td class="col-nombre">{{ empresa.nombre }}</td>
+              <td class="col-cif">{{ empresa.cif }}</td>
+            </tr>
+            <tr *ngIf="empresasFiltradas.length === 0">
+              <td colspan="2" class="no-data-message">No hay empresas disponibles</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Products Table -->
+    <div class="table-container">
+      <div class="panel-header">
+        <h2>Productos</h2>
+        <button class="add-button" (click)="abrirModalCrearProducto()" aria-label="Añadir producto">+</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar producto..." [(ngModel)]="busquedaProducto" (input)="filtrarProductos($event)">
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="col-nombre">Producto</th>
+              <th class="col-precio">Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let producto of productosFiltrados; let i = index">
+              <td class="col-nombre">{{ producto.nombre }}</td>
+              <td class="col-precio">{{ formatearMoneda(producto.precio) }}</td>
+            </tr>
+            <tr *ngIf="productosFiltrados.length === 0">
+              <td colspan="2" class="no-data-message">No hay productos disponibles</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Crear Factura -->
+<app-crear-factura
+  [visible]="mostrarModalCrearFactura"
+  [empresas]="empresas"
+  [productos]="productos"
+  (close)="cerrarModalCrearFactura()"
+  (save)="guardarNuevaFactura($event)">
+</app-crear-factura>
+
+<!-- Modal de Crear Empresa -->
+<app-crear-empresa
+  [visible]="mostrarModalCrearEmpresa"
+  (close)="cerrarModalCrearEmpresa()"
+  (save)="guardarNuevaEmpresa($event)">
+</app-crear-empresa>
+
+<!-- Modal de Crear Producto -->
+<app-crear-producto
+  [visible]="mostrarModalCrearProducto"
+  (close)="cerrarModalCrearProducto()"
+  (save)="guardarNuevoProducto($event)">
+</app-crear-producto>
+
+<!-- Modal de Detalle de Factura -->
+<app-detalle-factura
+  [visible]="mostrarModalDetalleFactura"
+  [factura]="facturaSeleccionada"
+  (close)="cerrarModalDetalleFactura()">
+</app-detalle-factura>

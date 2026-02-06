@@ -1,0 +1,52 @@
+<div class="sidebar-container" [class.mobile-open]="isMobileMenuOpen">
+  <!-- Overlay para cerrar el menú en móvil -->
+  <div class="sidebar-overlay" *ngIf="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+  
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <img src="/logo.png" alt="Logo JA" class="logo-img">
+        <span>JosemApp</span>
+      </div>
+      <button class="close-menu-btn" *ngIf="isMobileMenuOpen" (click)="onToggleMenu()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <nav class="nav-menu">
+      <ng-container *ngFor="let item of navItems">
+        <!-- Para items que requieren permiso pero no lo tienen -->
+        <a 
+          *ngIf="item.requiresPermission && !item.hasPermission"
+          class="nav-item restricted"
+          title="No tienes permiso para acceder a esta sección"
+        >
+          <i class="icon">{{ item.icon }}</i>
+          <span class="nav-label">{{ item.label }}</span>
+          <i class="lock-icon">🔒</i>
+        </a>
+        
+        <!-- Para items normales o con permisos -->
+        <a 
+          *ngIf="!item.requiresPermission || item.hasPermission"
+          [routerLink]="item.path" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{exact: item.exact || false}" 
+          class="nav-item"
+          (click)="closeMobileMenu()"
+        >
+          <i class="icon">{{ item.icon }}</i>
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      </ng-container>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" (click)="logout()">
+        <i class="icon">🚪</i>
+        <span>Cerrar sesión</span>
+      </button>
+    </div>
+  </aside>
+</div>

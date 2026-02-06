@@ -1,0 +1,46 @@
+# Dependencias
+node_modules/
+
+# Entorno (secretos y config sensible)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Build / compilado
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
+# Logs y caché
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.angular/
+.sass-cache/
+coverage/
+
+# IDEs y editores
+.idea/
+.project
+.classpath
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Otros
+connect.lock
+libpeerconnection.log
+testem.log
+typings/

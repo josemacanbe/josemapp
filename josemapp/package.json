@@ -1,0 +1,53 @@
+{
+  "name": "josemapp",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "dev": "concurrently -n angular,bff -c blue,green \"npm run start\" \"npm run dev --prefix bff\"",
+    "build:all": "ng build",
+    "deploy": "ng build && npm run start:prod",
+    "start:prod": "cross-env NODE_ENV=production SERVING_STATIC=1 node bff/src/index.js"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "dependencies": {
+    "@angular/animations": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/platform-browser-dynamic": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "chart.js": "^3.9.1",
+    "frappe-gantt": "^1.0.3",
+    "marked": "^17.0.0",
+    "ngx-bootstrap": "^21.0.0",
+    "ngx-markdown": "^21.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.0.0",
+    "@angular/cli": "^21.0.0",
+    "@angular/compiler-cli": "^21.0.0",
+    "@types/chart.js": "^2.9.41",
+    "@types/jasmine": "~5.1.0",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "jasmine-core": "~5.6.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.9.0"
+  }
+}

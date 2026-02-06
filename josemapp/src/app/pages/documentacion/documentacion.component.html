@@ -1,0 +1,202 @@
+<div class="documentacion-container">
+    <div class="documentacion-header">
+        <h1>Gestión de Tareas</h1>
+        <p>Visualización y gestión del proyecto mediante diagrama de Gantt</p>
+        <button class="btn-primary" (click)="abrirModalNuevaTarea()">+ Nueva Tarea</button>
+    </div>
+    
+    <div class="documentacion-content">
+        <!-- Mensaje de carga -->
+        <div *ngIf="cargando" class="cargando-container">
+            <div class="spinner"></div>
+            <p>Cargando datos...</p>
+        </div>
+        
+        <!-- Mensaje de error -->
+        <div *ngIf="error" class="error-container">
+            <p>{{ error }}</p>
+        </div>
+        
+        <!-- Diagrama de Gantt -->
+        <div *ngIf="!cargando && !error" class="gantt-container">
+            <div class="gantt-wrapper">
+                <div class="gantt-title">
+                    <h2>Diagrama de Gantt</h2>
+                </div>
+                <div class="gantt-timeline">
+                    <!-- Encabezado del Gantt -->
+                    <div class="gantt-header">
+                        <div class="gantt-header-title">Tarea</div>
+                        <div class="gantt-header-dates">
+                            <div class="gantt-month">Abril 2025</div>
+                            <div class="gantt-days">
+                                <div class="gantt-day" *ngFor="let dia of [15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]">{{ dia }}</div>
+                            </div>
+                            <div class="gantt-month">Mayo 2025</div>
+                            <div class="gantt-days">
+                                <div class="gantt-day" *ngFor="let dia of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]">{{ dia }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Filas del Gantt -->
+                    <div class="gantt-body">
+                        <div class="gantt-row" *ngFor="let tarea of tareas">
+                            <div class="gantt-task-info">
+                                <div class="gantt-task-name">{{ tarea.tarea }}</div>
+                                <div class="gantt-task-details">
+                                    <span class="gantt-badge" [ngClass]="'gantt-badge-' + getEstiloTarea(tarea.estado)">{{ tarea.estado }}</span>
+                                    <span>{{ tarea.duracion }} día(s)</span>
+                                </div>
+                            </div>
+                            <div class="gantt-task-timeline">
+                                <!-- Barra de la tarea con posición calculada dinámicamente -->
+                                <div class="gantt-task-bar" 
+                                    [ngClass]="'gantt-task-' + getEstiloTarea(tarea.estado)"
+                                    [ngStyle]="{'left': calcularPosicionBarra(tarea.inicio), 'width': calcularAnchoBarra(tarea.duracion)}">
+                                    <div class="gantt-task-content">
+                                        <span>{{ tarea.tarea }}</span>
+                                    </div>
+                                    <div class="gantt-task-actions">
+                                        <button class="btn-icon" (click)="abrirModalEditarTarea(tarea)" title="Editar">✏️</button>
+                                        <button class="btn-icon" (click)="confirmarBorrarTarea(tarea.id || '')" title="Eliminar">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabla de tareas debajo -->
+            <div class="tareas-tabla">
+                <h2>Listado de Tareas</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <!-- Eliminamos la columna ID -->
+                                <th>Tarea</th>
+                                <th>Estado</th>
+                                <th>Inicio</th>
+                                <th>Duración</th>
+                                <th>Responsable</th>
+                                <th>Depende de</th>
+                                <th class="acciones-header">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tarea of tareas">
+                                <!-- Eliminamos la celda ID -->
+                                <td>{{ tarea.tarea }}</td>
+                                <td>
+                                    <span class="badge" [ngClass]="'badge-' + getEstiloTarea(tarea.estado)">{{ tarea.estado }}</span>
+                                </td>
+                                <td>{{ tarea.inicio }}</td>
+                                <td>{{ tarea.duracion }} día(s)</td>
+                                <td>{{ tarea.responsable }}</td>
+                                <td>{{ tarea.dependeDe }}</td>
+                                <td class="acciones-column">
+                                    <div class="flex-container">
+                                        <button class="btn-icon" (click)="abrirModalEditarTarea(tarea)" title="Editar">✏️</button>
+                                        <button class="btn-icon" (click)="confirmarBorrarTarea(tarea.id || '')" title="Eliminar">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para crear/editar tarea -->
+<div class="modal" *ngIf="mostrarModalTarea">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>{{ accionActual === 'crear' ? 'Nueva Tarea' : 'Editar Tarea' }}</h2>
+            <button class="btn-close" (click)="cerrarModalTarea()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="tareaForm" (ngSubmit)="guardarTarea()">
+                <div class="form-group">
+                    <label for="tarea">Tarea:</label>
+                    <input type="text" id="tarea" formControlName="tarea" class="form-control">
+                    <div *ngIf="tareaForm.controls['tarea'].invalid && tareaForm.controls['tarea'].touched" class="form-error">
+                        Este campo es requerido
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <select id="estado" formControlName="estado" class="form-control">
+                        <option value="No iniciada">No iniciada</option>
+                        <option value="En proceso">En proceso</option>
+                        <option value="Hecho">Hecho</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="inicio">Fecha de inicio:</label>
+                    <input type="date" id="inicio" formControlName="inicio" class="form-control">
+                    <div *ngIf="tareaForm.controls['inicio'].invalid && tareaForm.controls['inicio'].touched" class="form-error">
+                        Este campo es requerido
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duracion">Duración (días):</label>
+                    <input type="number" id="duracion" formControlName="duracion" class="form-control" min="1">
+                    <div *ngIf="tareaForm.controls['duracion'].invalid && tareaForm.controls['duracion'].touched" class="form-error">
+                        Ingresa una duración válida (mínimo 1 día)
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="responsable">Responsable:</label>
+                    <input type="text" id="responsable" formControlName="responsable" class="form-control">
+                    <div *ngIf="tareaForm.controls['responsable'].invalid && tareaForm.controls['responsable'].touched" class="form-error">
+                        Este campo es requerido
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dependeDe">Depende de (ID de tarea):</label>
+                    <select id="dependeDe" formControlName="dependeDe" class="form-control">
+                        <option value="">Ninguna</option>
+                        <option *ngFor="let tarea of tareas" [value]="tarea.id">
+                            {{ tarea.id }} - {{ tarea.tarea }}
+                        </option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" (click)="cerrarModalTarea()">Cancelar</button>
+                    <button type="submit" class="btn-primary" [disabled]="tareaForm.invalid">
+                        {{ accionActual === 'crear' ? 'Crear' : 'Guardar Cambios' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación para eliminar -->
+<div class="modal" *ngIf="mostrarModalConfirmacion">
+    <div class="modal-content modal-sm">
+        <div class="modal-header">
+            <h2>Confirmar eliminación</h2>
+            <button class="btn-close" (click)="cerrarModalConfirmacion()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro de que deseas eliminar esta tarea?</p>
+            <p>Esta acción no se puede deshacer.</p>
+            
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" (click)="cerrarModalConfirmacion()">Cancelar</button>
+                <button type="button" class="btn-danger" (click)="borrarTarea()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

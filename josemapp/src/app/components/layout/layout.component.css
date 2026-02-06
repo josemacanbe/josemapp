@@ -1,0 +1,41 @@
+.layout-container {
+  display: flex;
+  height: 100vh;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 220px;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  height: 100vh;
+  width: calc(100% - 220px);
+  position: relative;
+  padding-top: 50px; /* Espacio para el header en todas las resoluciones */
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+  }
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding-top: 50px; /* Mantenemos el mismo padding para el header */
+  }
+  
+  /* Cuando el menú está abierto */
+  .sidebar-open {
+    overflow: hidden;
+  }
+}

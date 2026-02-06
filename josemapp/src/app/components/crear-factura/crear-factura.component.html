@@ -1,0 +1,53 @@
+<div class="modal-overlay" [class.show]="visible" (click)="closeOnBackdrop($event)">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>Crear Nueva Factura</h2>
+      <button class="close-button" (click)="cancelar()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="guardar()" #facturaForm="ngForm">
+        <div class="form-group">
+          <label for="empresa">Empresa:</label>
+          <select id="empresa" name="empresa" [(ngModel)]="nuevaFactura.empresa" required>
+            <option value="">Seleccionar empresa</option>
+            <option *ngFor="let empresa of empresas" [value]="empresa.nombre">{{ empresa.nombre }}</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="fecha">Fecha:</label>
+          <input type="date" id="fecha" name="fecha" [(ngModel)]="nuevaFactura.fecha" required>
+        </div>
+        
+        <div class="form-group productos-section">
+          <label>Productos:</label>
+          <div class="productos-container">
+            <div *ngFor="let prod of selectedProductos; let i = index" class="producto-item">
+              <span>{{ prod.nombre }} - {{ formatearMoneda(prod.precio) }}</span>
+              <button type="button" class="remove-producto" (click)="removeProducto(i)">×</button>
+            </div>
+          </div>
+          
+          <div class="add-producto">
+            <select [(ngModel)]="selectedProducto" name="producto" [ngModelOptions]="{standalone: true}">
+              <option [ngValue]="null">Seleccionar producto</option>
+              <option *ngFor="let producto of productos" [ngValue]="producto">{{ producto.nombre }}</option>
+            </select>
+            <button type="button" (click)="addProducto()" [disabled]="!selectedProducto">Añadir</button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="total">Total:</label>
+          <input type="number" id="total" name="total" [(ngModel)]="nuevaFactura.total" required min="0" step="0.01">
+        </div>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="cancel-button" (click)="cancelar()">Cancelar</button>
+      <button class="save-button" (click)="guardar()" [disabled]="!facturaForm.form.valid">Guardar</button>
+    </div>
+  </div>
+</div>

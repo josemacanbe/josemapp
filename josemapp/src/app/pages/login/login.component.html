@@ -1,0 +1,51 @@
+<div class="login-container">
+  <div class="login-card">
+    <img src="logo.png" alt="JosemApp Logo" class="logo">
+    <h1 class="title">JosemApp</h1>
+    
+    <div class="login-form">
+      <h2>Iniciar Sesión</h2>
+      
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-container">
+            <i class="icon">👤</i>
+            <input 
+              type="text" 
+              id="email" 
+              name="username" 
+              [(ngModel)]="username" 
+              placeholder="tu@email.com"
+              required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <div class="input-container">
+            <i class="icon">🔒</i>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              [(ngModel)]="password" 
+              placeholder="••••••••"
+              required>
+          </div>
+        </div>
+        
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+        
+        <button 
+          type="submit" 
+          class="login-button" 
+          [disabled]="loading">
+          {{ loading ? 'Procesando...' : 'Acceder' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

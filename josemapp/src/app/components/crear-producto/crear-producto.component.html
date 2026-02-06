@@ -1,0 +1,31 @@
+<div class="modal-overlay" [class.show]="visible" (click)="closeOnBackdrop($event)">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>Crear Nuevo Producto</h2>
+      <button class="close-button" (click)="cancelar()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="guardar()" #productoForm="ngForm">
+        <div class="form-group">
+          <label for="nombre">Nombre del Producto:</label>
+          <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevoProducto.nombre" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="precio">Precio:</label>
+          <div class="precio-input-container">
+            <input type="number" id="precio" name="precio" [(ngModel)]="nuevoProducto.precio" required min="0" step="0.01">
+            <span class="precio-suffix">€</span>
+          </div>
+          <p class="precio-preview" *ngIf="nuevoProducto.precio > 0">Visualización: {{ formatearMoneda(nuevoProducto.precio) }}</p>
+        </div>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="cancel-button" (click)="cancelar()">Cancelar</button>
+      <button class="save-button" (click)="guardar()" [disabled]="!productoForm.form.valid">Guardar</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  background-color: #0f0f0f;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  position: relative;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff00ff, #00bbff);
+  z-index: 1;
+}
+
+.login-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00bbff, #ff00ff);
+  z-index: 1;
+}
+
+.logo {
+  display: block;
+  width: 120px;
+  height: auto;
+  margin: 0 auto 20px;
+}
+
+.title {
+  color: #ff00ff;
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+}
+
+.login-form h2 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.icon {
+  width: 40px;
+  text-align: center;
+  color: #9ca3af;
+}
+
+input {
+  flex: 1;
+  padding: 15px 15px 15px 0;
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+input::placeholder {
+  color: #6b7280;
+}
+
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.login-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(90deg, #ff00ff, #6600ff);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.login-button:hover {
+  transform: translateY(-1px);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

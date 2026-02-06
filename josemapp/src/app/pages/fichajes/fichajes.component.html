@@ -1,0 +1,155 @@
+<div class="fichajes-container">
+  <div class="content">
+    <!-- Botones de Acción -->
+    <div class="action-buttons">
+      <button 
+        [ngClass]="getButtonClass('entrada')" 
+        [disabled]="!canShowButton('entrada') || loading" 
+        (click)="registrarEntrada()">
+        <i class="button-icon">▶️</i>
+        <span>Entrada</span>
+      </button>
+      
+      <button 
+        [ngClass]="getButtonClass('pausa')" 
+        [disabled]="!canShowButton('pausa') || loading" 
+        (click)="iniciarPausa()">
+        <i class="button-icon">⏸️</i>
+        <span>Pausa</span>
+      </button>
+      
+      <button 
+        [ngClass]="getButtonClass('regreso')" 
+        [disabled]="!canShowButton('regreso') || loading" 
+        (click)="terminarPausa()">
+        <i class="button-icon">⏯️</i>
+        <span>Regreso</span>
+      </button>
+      
+      <button 
+        [ngClass]="getButtonClass('salida')" 
+        [disabled]="!canShowButton('salida') || loading" 
+        (click)="registrarSalida()">
+        <i class="button-icon">⏹️</i>
+        <span>Salida</span>
+      </button>
+    </div>
+
+    <!-- Estado Actual -->
+    <div class="estado-actual-card">
+      <h2>Estado Actual</h2>
+      <div class="estado-actual-content">
+        <div class="estado-badge" [ngClass]="{'estado-no-entrada': status === 'noEntrada', 'estado-trabajando': status === 'trabajando', 'estado-pausa': status === 'enPausa'}">
+          <span *ngIf="status === 'noEntrada'">Sin Registrar</span>
+          <span *ngIf="status === 'trabajando'">Trabajando</span>
+          <span *ngIf="status === 'enPausa'">En Pausa</span>
+        </div>
+        
+        <div class="jornada-actual" *ngIf="currentJornada">
+          <div class="jornada-info">
+            <span class="jornada-label">Entrada:</span>
+            <span class="jornada-value">{{ currentJornada.entrada }}</span>
+          </div>
+          
+          <div class="jornada-info" *ngIf="currentJornada.pausas && currentJornada.pausas.length > 0">
+            <span class="jornada-label">Pausas:</span>
+            <div class="pausas-list">
+              <div class="pausa-item" *ngFor="let pausa of currentJornada.pausas">
+                <span>{{ pausa.inicio }} - {{ pausa.fin ? pausa.fin : 'Actual' }}</span>
+                <span *ngIf="pausa.duracion">({{ pausa.duracion }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Observaciones -->
+    <div class="observaciones-section">
+      <div class="form-group">
+        <label for="observaciones">Observaciones (Opcional)</label>
+        <textarea 
+          id="observaciones" 
+          rows="2" 
+          [(ngModel)]="observaciones" 
+          placeholder="Añade detalles adicionales...">
+        </textarea>
+      </div>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="mensajes">
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+    </div>
+
+    <!-- Historial de Jornadas -->
+    <div class="historial-section" *ngIf="jornadas && jornadas.length > 0">
+      <h2>
+        Historial de Jornadas
+        <button class="refresh-button" (click)="recargarHistorial()" [disabled]="loading">
+          <i class="refresh-icon">↻</i>
+        </button>
+      </h2>
+      
+      <div class="jornadas-list">
+        <div class="jornada-item" *ngFor="let jornada of jornadasPaginadas">
+          <div class="jornada-header">
+            <div class="jornada-fecha">{{ formatearFecha(jornada.fecha) }}</div>
+            <div class="jornada-duracion" *ngIf="jornada.duracion">
+              <i class="icon">⏱️</i>
+              {{ jornada.duracion }}
+            </div>
+          </div>
+          
+          <div class="jornada-detalles">
+            <div class="jornada-tiempo">
+              <div class="tiempo-item">
+                <span class="tiempo-label">Entrada:</span>
+                <span class="tiempo-valor">{{ jornada.entrada }}</span>
+              </div>
+              <div class="tiempo-item" *ngIf="jornada.salida">
+                <span class="tiempo-label">Salida:</span>
+                <span class="tiempo-valor">{{ jornada.salida }}</span>
+              </div>
+            </div>
+            
+            <div class="jornada-pausas" *ngIf="jornada.pausas && jornada.pausas.length > 0">
+              <div class="pausas-header">Pausas:</div>
+              <div class="pausas-items">
+                <div class="pausa-item" *ngFor="let pausa of jornada.pausas">
+                  <span>{{ pausa.inicio }} - {{ pausa.fin || 'Actual' }}</span>
+                  <span *ngIf="pausa.duracion">({{ pausa.duracion }})</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paginación -->
+      <div class="paginacion-controles">
+        <button 
+          class="paginacion-boton" 
+          [disabled]="paginaActual === 1" 
+          (click)="paginaAnterior()">
+          Anterior
+        </button>
+        <div class="paginacion-info">
+          Página {{ paginaActual }} de {{ totalPaginas }}
+        </div>
+        <button 
+          class="paginacion-boton" 
+          [disabled]="paginaActual === totalPaginas" 
+          (click)="paginaSiguiente()">
+          Siguiente
+        </button>
+      </div>
+    </div>
+    
+    <div class="empty-state" *ngIf="!jornadas || jornadas.length === 0">
+      <div class="empty-icon">📋</div>
+      <div class="empty-message">No hay jornadas registradas</div>
+    </div>
+  </div>
+</div>

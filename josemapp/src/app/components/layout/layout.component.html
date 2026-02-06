@@ -1,0 +1,15 @@
+<div class="layout-container">
+  <!-- Header móvil -->
+  <app-header (toggleMenu)="toggleMobileMenu()"></app-header>
+  
+  <!-- Sidebar componente -->
+  <app-sidebar 
+    [isMobileMenuOpen]="isMobileMenuOpen" 
+    (toggleMenu)="toggleMobileMenu()"
+  ></app-sidebar>
+  
+  <!-- Contenido principal -->
+  <main class="main-content" [class.sidebar-open]="isMobileMenuOpen">
+    <router-outlet></router-outlet>
+  </main>
+</div>

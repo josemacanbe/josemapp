@@ -1,0 +1,22 @@
+<header class="app-header">
+  <div class="header-content">
+    <!-- Logo o título de la app a la izquierda -->
+    <div class="app-title">
+      <span>JosemApp</span>
+    </div>
+    
+    <!-- Saludo y hora en el centro -->
+    <div class="time-greeting">
+      <span class="time">{{ currentTime }}</span>
+      <span class="greeting">{{ greeting }}, {{ username }}</span>
+    </div>
+    
+    <!-- Botones de acción a la derecha -->
+    <div class="header-actions">
+      <!-- Botón de hamburguesa solo para móvil -->
+      <button class="icon-button menu-btn mobile-only" (click)="onToggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>

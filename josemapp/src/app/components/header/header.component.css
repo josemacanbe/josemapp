@@ -1,0 +1,121 @@
+.app-header {
+  background-color: #0f0f0f;
+  color: white;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  display: block;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
+}
+
+/* Título de la app */
+.app-title {
+  color: #ff00ff;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Contenedor del tiempo y saludo */
+.time-greeting {
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.time {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  display: inline-block;
+}
+
+.greeting {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  display: inline-block;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.notification-btn {
+  color: #ffcc00;
+}
+
+.settings-btn {
+  color: white;
+}
+
+/* Controles para mostrar/ocultar elementos según resolución */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: flex;
+}
+
+/* Media queries para responsive */
+@media (max-width: 900px) {
+  .time {
+    font-size: 0.8rem;
+  }
+  
+  .greeting {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .mobile-only {
+    display: flex;
+  }
+  
+  .desktop-only {
+    display: none;
+  }
+  
+  .app-title {
+    display: none;
+  }
+  
+  .time-greeting {
+    text-align: left;
+    align-items: center;
+  }
+}

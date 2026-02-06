@@ -1,0 +1,363 @@
+.consultas-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 50px); /* Altura de la ventana menos el header */
+  background-color: #0f0f0f;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  overflow: hidden; /* Cambiado de auto a hidden */
+  -webkit-overflow-scrolling: touch;
+}
+
+.consultas-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.consultas-header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #ff00ff;
+}
+
+.consultas-header p {
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  max-height: calc(100vh - 180px); /* Altura máxima ajustada */
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 300px; /* Reducida de 400px */
+  max-height: calc(100vh - 240px); /* Altura adaptativa */
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+}
+
+.user-message {
+  align-self: flex-end;
+}
+
+.assistant-message {
+  align-self: flex-start;
+}
+
+.message-content {
+  display: flex;
+  padding: 12px 16px;
+  border-radius: 12px;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.user-message .message-content {
+  background-color: #6600ff;
+  color: white;
+  border-radius: 12px 12px 0 12px;
+}
+
+.assistant-message .message-content {
+  background-color: #2d2d2d;
+  color: white;
+  border-radius: 12px 12px 12px 0;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.user-message .message-avatar {
+  background-color: #4d00bf;
+}
+
+.assistant-message .message-avatar {
+  background-color: #1a1a1a;
+}
+
+.message-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* Estilos para los elementos Markdown */
+.message-text h1, 
+.message-text h2, 
+.message-text h3, 
+.message-text h4 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.message-text h1 {
+  font-size: 1.5rem;
+  color: #bb86fc;
+}
+
+.message-text h2 {
+  font-size: 1.3rem;
+  color: #bb86fc;
+}
+
+.message-text h3 {
+  font-size: 1.15rem;
+  color: #bb86fc;
+}
+
+.message-text h4 {
+  font-size: 1rem;
+  color: #bb86fc;
+}
+
+.message-text p {
+  margin-bottom: 0.75rem;
+}
+
+.message-text ul, .message-text ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.message-text li {
+  margin-bottom: 0.25rem;
+}
+
+.message-text code {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.15rem 0.3rem;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+.message-text pre {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+.message-text pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.9em;
+  white-space: pre;
+}
+
+.message-text blockquote {
+  border-left: 3px solid #bb86fc;
+  padding-left: 0.75rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: #9ca3af;
+}
+
+.message-text strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.message-text em {
+  font-style: italic;
+}
+
+.message-text table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.message-text th, .message-text td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.message-text th {
+  background-color: rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+}
+
+/* Estilos para los enlaces en los mensajes */
+.message-text a {
+  color: #bb86fc;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.assistant-message .message-text a {
+  color: #bb86fc;
+}
+
+.user-message .message-text a {
+  color: #d7bfff;
+}
+
+/* Estilo para la hora del mensaje */
+.message-time {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 4px;
+  align-self: flex-end;
+  margin-right: 8px;
+}
+
+.loading-message {
+  align-self: flex-start;
+  padding: 10px;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #6b7280;
+  animation: bounce 1.5s infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-8px);
+  }
+}
+
+.chat-input {
+  display: flex;
+  padding: 16px;
+  background-color: #262626;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chat-input input {
+  flex: 1;
+  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-input input:focus {
+  border-color: #6600ff;
+}
+
+.chat-input button {
+  background-color: #6600ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  margin-left: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.chat-input button:hover {
+  background-color: #7a29ff;
+}
+
+.chat-input button:disabled {
+  background-color: #4b4b4b;
+  cursor: not-allowed;
+}
+
+/* Media queries para responsive */
+@media (max-width: 768px) {
+  .consultas-container {
+    padding: 10px;
+  }
+  
+  .message {
+    max-width: 85%;
+  }
+  
+  .chat-messages {
+    min-height: 300px;
+    max-height: 60vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .consultas-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .consultas-header p {
+    font-size: 0.9rem;
+  }
+  
+  .message {
+    max-width: 90%;
+  }
+  
+  .message-text {
+    font-size: 0.9rem;
+  }
+  
+  .chat-input input {
+    padding: 10px 12px;
+  }
+  
+  .chat-input button {
+    width: 38px;
+    height: 38px;
+  }
+}

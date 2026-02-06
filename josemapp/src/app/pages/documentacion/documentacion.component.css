@@ -1,0 +1,601 @@
+.documentacion-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.documentacion-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.documentacion-header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #ff00ff;
+}
+
+.documentacion-header p {
+    color: #9ca3af;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.documentacion-content {
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px;
+}
+
+.markdown-content {
+    font-family: 'Courier New', monospace;
+    color: #ffffff;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+/* Estilos para el diagrama de Gantt */
+.gantt-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+.gantt-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.gantt-title {
+    margin-bottom: 15px;
+}
+
+.gantt-title h2 {
+    font-size: 1.5rem;
+    color: #ff00ff;
+    margin: 0;
+}
+
+.gantt-timeline {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background-color: #222;
+    margin-bottom: 20px;
+}
+
+.gantt-header {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    background-color: #222;
+    z-index: 2;
+}
+
+.gantt-header-title {
+    min-width: 200px;
+    padding: 10px;
+    font-weight: bold;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #333;
+    position: sticky;
+    left: 0;
+    z-index: 3;
+}
+
+.gantt-header-dates {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.gantt-month {
+    padding: 5px 10px;
+    font-weight: bold;
+    background-color: #333;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gantt-days {
+    display: flex;
+}
+
+.gantt-day {
+    width: 20px;
+    padding: 5px 0;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.8rem;
+}
+
+.gantt-body {
+    position: relative;
+}
+
+.gantt-row {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gantt-task-info {
+    min-width: 200px;
+    padding: 10px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: sticky;
+    left: 0;
+    background-color: #222;
+    z-index: 1;
+}
+
+.gantt-task-name {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gantt-task-details {
+    display: flex;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.gantt-task-timeline {
+    position: relative;
+    height: 60px;
+    width: 100%;
+}
+
+.gantt-task-bar {
+    position: absolute;
+    top: 10px;
+    height: 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.gantt-task-bar:hover {
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    z-index: 1;
+}
+
+.gantt-task-success {
+    background-color: rgba(16, 185, 129, 0.6);
+    border: 1px solid rgb(16, 185, 129);
+}
+
+.gantt-task-info-bar {
+    background-color: rgba(59, 130, 246, 0.6);
+    border: 1px solid rgb(59, 130, 246);
+}
+
+.gantt-task-warning {
+    background-color: rgba(245, 158, 11, 0.6);
+    border: 1px solid rgb(245, 158, 11);
+}
+
+.gantt-task-default {
+    background-color: rgba(107, 114, 128, 0.6);
+    border: 1px solid rgb(107, 114, 128);
+}
+
+.gantt-task-content {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.gantt-task-actions {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+}
+
+.gantt-task-bar:hover .gantt-task-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.gantt-badge, .badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.gantt-badge-success, .badge-success {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: rgb(16, 185, 129);
+}
+
+.gantt-badge-info-bar, .badge-info-bar {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: rgb(59, 130, 246);
+}
+
+.gantt-badge-warning, .badge-warning {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: rgb(245, 158, 11);
+}
+
+.gantt-badge-default, .badge-default {
+    background-color: rgba(107, 114, 128, 0.2);
+    color: rgb(107, 114, 128);
+}
+
+/* Estilos para la tabla de tareas */
+.tareas-tabla {
+    margin-top: 30px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tareas-tabla h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #ff00ff;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    vertical-align: middle;
+    word-wrap: break-word;
+}
+
+th {
+    background-color: #333;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.acciones-header {
+    text-align: center;
+    width: 100px;
+}
+
+.acciones-column {
+    text-align: center;
+    width: 100px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Estilos de botones */
+.btn-primary {
+    background-color: #ff00ff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #e100e1;
+}
+
+.btn-secondary {
+    background-color: #4b5563;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #374151;
+}
+
+.btn-danger {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+}
+
+/* Estilos para los modales */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-sm {
+    max-width: 400px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #ff00ff;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* Estilos para el formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #9ca3af;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: white;
+}
+
+.form-error {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Estados de carga y error */
+.cargando-container, .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 0, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: #ff00ff;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+.error-container p {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mejora de estilos responsive */
+@media (max-width: 1200px) {
+    .gantt-day {
+        width: 18px;
+    }
+    
+    .gantt-task-info {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .documentacion-container {
+        padding: 15px;
+    }
+    
+    .documentacion-header h1 {
+        font-size: 1.6rem;
+    }
+    
+    .gantt-task-info {
+        min-width: 160px;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 8px 5px;
+    }
+    
+    .gantt-day {
+        width: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .documentacion-container {
+        padding: 10px;
+    }
+    
+    .documentacion-header h1 {
+        font-size: 1.4rem;
+    }
+    
+    .gantt-task-info {
+        min-width: 140px;
+    }
+
+    table {
+        font-size: 0.85rem;
+    }
+
+    .gantt-timeline {
+        margin-bottom: 20px;
+    }
+    
+    .gantt-day {
+        width: 15px;
+        font-size: 0.75rem;
+    }
+    
+    .gantt-header-title {
+        min-width: 140px;
+    }
+    
+    .btn-primary {
+        font-size: 0.9rem;
+        padding: 7px 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .documentacion-header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .documentacion-content {
+        padding: 10px;
+    }
+
+    .gantt-task-info {
+        min-width: 120px;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    .gantt-month, .gantt-header-title {
+        font-size: 0.9rem;
+    }
+
+    .gantt-day {
+        width: 14px;
+        font-size: 0.7rem;
+    }
+
+    .btn-icon {
+        font-size: 0.9rem;
+    }
+    
+    .gantt-header-title {
+        min-width: 120px;
+        padding: 8px;
+    }
+    
+    .gantt-badge, .badge {
+        font-size: 0.65rem;
+        padding: 1px 4px;
+    }
+}

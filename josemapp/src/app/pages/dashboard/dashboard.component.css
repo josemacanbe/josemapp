@@ -1,0 +1,485 @@
+/* Fix Scroll */
+html, body, app-root, app-dashboard {
+  overflow-y: auto !important;
+  height: 100%;
+}
+
+/* General Layout */
+.dashboard-container {
+  padding: 1.5rem;
+  background-color: #1a1a2e;
+  min-height: 100vh;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  overflow-y: auto !important;
+  width: 100%;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Widgets Row */
+.widgets-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.widget-card {
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  min-height: 100px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.widget-icon {
+  font-size: 1.8rem;
+  margin-right: 1rem;
+  min-width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.widget-content {
+  overflow: hidden;
+}
+
+.widget-content h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.widget-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Widget Colors */
+.purple-bg {
+  background-color: #762ec3;
+  background-image: linear-gradient(40deg, #762ec3, #9d4edd);
+}
+
+.blue-bg {
+  background-color: #2b6cb0;
+  background-image: linear-gradient(40deg, #2b6cb0, #4299e1);
+}
+
+.green-bg {
+  background-color: #2f855a;
+  background-image: linear-gradient(40deg, #2f855a, #38a169);
+}
+
+.orange-bg {
+  background-color: #c05621;
+  background-image: linear-gradient(40deg, #c05621, #dd6b20);
+}
+
+/* Main Content Row */
+.main-content-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-container, .latest-invoices {
+  background-color: #24243e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 400px;
+  max-height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.month-selector {
+  background-color: #141428;
+  border: 1px solid #3a3a5e;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  color: white;
+  cursor: pointer;
+  max-width: 150px;
+}
+
+.chart-wrapper {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  overflow: hidden;
+}
+
+/* Latest Invoices */
+.invoice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a5e #1e1e38;
+  flex: 1;
+}
+
+.invoice-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #1e1e38;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.invoice-item:hover {
+  background-color: #2a2a50;
+}
+
+.invoice-company {
+  overflow: hidden;
+  flex: 1;
+}
+
+.invoice-company h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.invoice-company p {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: #a0aec0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.invoice-amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #9d4edd;
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+.no-data-message {
+  padding: 1.5rem;
+  text-align: center;
+  color: #a0aec0;
+  background-color: #1e1e38;
+  border-radius: 6px;
+  font-style: italic;
+}
+
+/* Tables Row */
+.tables-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.table-container {
+  background-color: #24243e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  max-height: 350px;
+  overflow: hidden;
+}
+
+.add-button {
+  background-color: #9d4edd;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.add-button:hover {
+  background-color: #7e22ce;
+}
+
+.search-bar {
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #3a3a5e;
+  background-color: #1e1e38;
+  color: white;
+  box-sizing: border-box;
+}
+
+.table-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+}
+
+.data-table thead {
+  display: table;
+  width: calc(100% - 8px); /* Ajustar para compensar la barra de desplazamiento */
+  table-layout: fixed;
+}
+
+.data-table tbody {
+  display: block;
+  width: 100%;
+  overflow-y: auto;
+  max-height: 220px;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a5e #1e1e38;
+}
+
+.data-table tbody::-webkit-scrollbar {
+  width: 8px;
+}
+
+.data-table tbody::-webkit-scrollbar-track {
+  background: #1e1e38;
+}
+
+.data-table tbody::-webkit-scrollbar-thumb {
+  background-color: #3a3a5e;
+  border-radius: 4px;
+}
+
+.data-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.data-table th, .data-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #3a3a5e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.data-table th {
+  font-weight: 600;
+  color: #a0aec0;
+  position: sticky;
+  top: 0;
+  background-color: #24243e;
+  z-index: 10;
+}
+
+.data-table td {
+  vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+  background-color: #1e1e38;
+}
+
+/* Tamaños específicos de columnas */
+.col-nombre {
+  width: calc(100% - 120px); /* Restar el ancho de la otra columna */
+}
+
+.col-cif, .col-precio {
+  width: 120px;
+  text-align: right;
+}
+
+/* Aplicar anchos específicos */
+.data-table th.col-nombre, 
+.data-table td.col-nombre {
+  width: calc(100% - 120px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.data-table th.col-cif, 
+.data-table td.col-cif,
+.data-table th.col-precio, 
+.data-table td.col-precio {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  text-align: right;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .widgets-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .main-content-row, .tables-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-container, .latest-invoices, .table-container {
+    height: auto;
+    max-height: none;
+    margin-bottom: 1.5rem;
+  }
+  
+  .chart-wrapper {
+    height: 300px;
+  }
+  
+  .invoice-list {
+    max-height: 300px;
+  }
+  
+  .data-table tbody {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .widgets-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-container {
+    padding: 1rem;
+  }
+  
+  .widget-card {
+    padding: 1rem;
+  }
+  
+  .chart-container, .latest-invoices, .table-container {
+    padding: 1rem;
+  }
+  
+  .panel-header h2 {
+    font-size: 1.1rem;
+  }
+  
+  .invoice-amount {
+    font-size: 1rem;
+  }
+  
+  .data-table th, .data-table td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .col-cif, .col-precio {
+    width: 100px;
+  }
+  
+  .data-table th.col-cif, .data-table td.col-cif,
+  .data-table th.col-precio, .data-table td.col-precio {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .widget-icon {
+    font-size: 1.5rem;
+    min-width: 40px;
+    height: 40px;
+  }
+  
+  .widget-value {
+    font-size: 1.3rem;
+  }
+  
+  .chart-wrapper {
+    height: 250px;
+  }
+}
+
+.invoice-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.invoice-list::-webkit-scrollbar-track {
+  background: #1e1e38;
+}
+
+.invoice-list::-webkit-scrollbar-thumb {
+  background-color: #3a3a5e;
+  border-radius: 4px;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+}

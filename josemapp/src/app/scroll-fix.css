@@ -1,0 +1,17 @@
+/* Fix para problemas de scroll */
+
+html, body {
+  height: 100%;
+  overflow-y: auto !important;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+  overflow-y: auto !important;
+}
+
+.dashboard-container {
+  min-height: 100vh;
+  overflow-y: auto !important;
+} 

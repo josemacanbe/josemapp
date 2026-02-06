@@ -32,9 +32,8 @@ El vídeo corresponde a la defensa académica; la versión actual incluye mejora
 
 ### Dashboard principal
 
-```
-/screenshots/dashboard.png
-```
+<img width="1665" height="748" alt="image" src="https://github.com/user-attachments/assets/02543f04-7993-461d-ac37-032c2234be0b" />
+
 
 Incluye:
 
@@ -46,9 +45,8 @@ Incluye:
 
 ### Control horario laboral
 
-```
-/screenshots/time-tracking.png
-```
+<img width="1675" height="763" alt="image" src="https://github.com/user-attachments/assets/de7ff1de-ab62-4145-af6e-8d88cfe2b9d9" />
+
 
 Funcionalidades:
 
@@ -60,9 +58,8 @@ Funcionalidades:
 
 ### Asistente IA integrado
 
-```
-/screenshots/ai-assistant.png
-```
+<img width="1671" height="750" alt="image" src="https://github.com/user-attachments/assets/86c76972-ec01-497a-9604-5e6b3f3be2ba" />
+
 
 Permite:
 

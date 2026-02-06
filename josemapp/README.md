@@ -47,19 +47,19 @@ Todo el tráfico hacia Dolibarr, Coda y DeepSeek pasa por el **BFF**: el fronten
 
 ```
 +-----------------------------------------------------------------------+
-|                        NAVEGADOR (Cliente)                             |
-|  Angular SPA (localhost:4200 en dev / mismo origen en prod)            |
-|  * Login, Dashboard, Fichajes, Consultas, Documentación                 |
-|  * Sin credenciales; solo envía datos de negocio al BFF                 |
+|                        NAVEGADOR (Cliente)                            |
+|  Angular SPA (localhost:4200 en dev / mismo origen en prod)           |
+|  * Login, Dashboard, Fichajes, Consultas, Documentación               |
+|  * Sin credenciales; solo envía datos de negocio al BFF               |
 +-----------------------------------------------------------------------+
                     |
                     |  HTTP (withCredentials)  /bff/*
                     v
 +-----------------------------------------------------------------------+
-|              BFF - Backend For Frontend (Node/Express)                  |
-|              localhost:3001 (dev) / mismo puerto (prod)                |
-|  * Sesión con cookie HttpOnly (token Dolibarr)                         |
-|  * Proxy a Dolibarr, Coda y DeepSeek con credenciales desde .env       |
+|              BFF - Backend For Frontend (Node/Express)                |
+|              localhost:3001 (dev) / mismo puerto (prod)               |
+|  * Sesión con cookie HttpOnly (token Dolibarr)                        |
+|  * Proxy a Dolibarr, Coda y DeepSeek con credenciales desde .env      |
 |  * En producción: sirve también los estáticos de Angular (SPA)        |
 +-----------------------------------------------------------------------+
         |                     |                        |
